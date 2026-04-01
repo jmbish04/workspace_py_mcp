@@ -1,0 +1,29 @@
+{
+  "queries": [
+    {
+      "topic": "Server-Sent Events on Workers",
+      "question": "How to handle long-running Server-Sent Events (SSE) connections in Cloudflare Workers using Hono without hitting script execution timeouts or CPU time limits?",
+      "reason": "We need to ensure the MCP client does not disconnect during long-running Google API calls or AI embedding generation, given Workers' CPU limits."
+    },
+    {
+      "topic": "Context WaitUntil Limits",
+      "question": "What are the limitations, guarantees, and maximum execution times for ctx.waitUntil() in Cloudflare Workers, specifically regarding concurrent D1 database inserts and AI API calls?",
+      "reason": "We plan to use ctx.waitUntil() heavily for asynchronous tool execution logging to D1 and background AI processing. We must know if it will reliably execute or if we risk data loss under load."
+    },
+    {
+      "topic": "Workers AI Text Chunking and Context Windows",
+      "question": "What are the maximum input token limits, context windows, and rate limits for the '@cf/baai/bge-large-en-v1.5' embedding model in Workers AI, and what are the best practices for handling text that exceeds this limit in a single request?",
+      "reason": "When indexing Google Docs or long email threads, we need a strategy to chunk the text appropriately before sending it to the Workers AI embedding model."
+    },
+    {
+      "topic": "KV Eventual Consistency Impacts",
+      "question": "How long is the typical replication delay for Cloudflare KV writes to propagate globally, and what are the recommended patterns for handling read-after-write consistency issues when storing and immediately retrieving OAuth access tokens?",
+      "reason": "Since OAuth flow requires storing a token and immediately using it for API requests, KV's eventual consistency might cause authentication failures if the token isn't readable immediately after writing."
+    },
+    {
+      "topic": "Vectorize Index Mutation Limits",
+      "question": "What are the limits on concurrent vector insertions, upserts, and querying latency for Cloudflare Vectorize when rapidly indexing and querying data during an active LLM session?",
+      "reason": "We need to know if we can dynamically index a user's emails in real-time during an active session or if there are latency/throughput bottlenecks we must design around."
+    }
+  ]
+}
