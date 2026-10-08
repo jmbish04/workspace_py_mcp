@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   check-maintainer-edits:
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event.pull_request.head.repo.full_name && github.event.pull_request.head.repo.full_name != github.repository && 'ubuntu-latest' || fromJSON('["self-hosted","Linux","X64","proxmox-actions"]') }}
     if: github.event.pull_request.head.repo.fork == true || github.event.pull_request.head.repo.full_name != github.repository
 
     steps:
@@ -44,7 +44,7 @@ jobs:
             }
 
   check-maintainer-edits-internal:
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event.pull_request.head.repo.full_name && github.event.pull_request.head.repo.full_name != github.repository && 'ubuntu-latest' || fromJSON('["self-hosted","Linux","X64","proxmox-actions"]') }}
     if: github.event.pull_request.head.repo.fork == false && github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
